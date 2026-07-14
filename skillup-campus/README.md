@@ -22,7 +22,7 @@ skillup-campus/
 │   │   └── config/
 │   ├── .env.example
 │   └── package.json
-├── frontend/         # SPA (HTML/CSS/JS)
+├── frontend/         
 │   ├── src/
 │   │   ├── pages/
 │   │   ├── components/
@@ -56,8 +56,3 @@ cd frontend
 - **Backend**: Node.js, Express, PostgreSQL
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Documentación**: 
-
-
-## Licencia
-
-MIT
