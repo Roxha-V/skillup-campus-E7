@@ -31,7 +31,7 @@ exports.register = async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    const token = jwt.sign({ id: user.id, role: user.role }, 'secret', { expiresIn: '24h' });
+    const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '24h' });
     res.status(200).json({ message: 'Inicio de sesión exitoso', id: user.id, role: user.role, token });
 
   } 
