@@ -1,13 +1,20 @@
 const express = require('express');
+const app = express();
 const sequelize = require('./config/database');
 
 const conection = sequelize.authenticate()
-const app = express();
 const PORT = 3001;
+
+app.use(express.json());
+// Importar rutas
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('Servidor Express funcionando');
 });
+
 
 async function startServer() {
   try {
