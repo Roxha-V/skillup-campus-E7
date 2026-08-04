@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(401).json({ error: 'Credenciales inválidas aqui' });
+      return res.status(401).json({ error: 'Credenciales inválidas' });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
