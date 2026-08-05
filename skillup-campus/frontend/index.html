@@ -4,12 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skillup Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/styles/style.css">
 </head>
 <body>
+    <header class="navbar">
+        <a class="navbar__logo" href="index.html">
+            <span class="navbar__logo-icon">📗</span>
+            <span class="navbar__logo-text">SkillUp<small>CAMPUS</small></span>
+        </a>
+        <nav class="navbar__links">
+            <a href="pages/catalog.html">Cursos</a>
+            <a href="#about">Sobre nosotros</a>
+        </nav>
+        <div class="navbar__search">
+            🔍
+            <input type="search" placeholder="Buscar cursos">
+        </div>
+        <div class="navbar__actions">
+            <a class="btn btn-outline" href="pages/login.html">Iniciar sesión</a>
+            <a class="btn btn-primary" href="pages/register.html">Regístrate</a>
+        </div>
+    </header>
+
     <div id="app">
         <!-- Content will be rendered here -->
     </div>
+
+    <footer class="footer">
+        <div class="footer__content">
+            <span>© 2026 SkillUp. Todos los derechos reservados.</span>
+            <div class="footer__social">
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="YouTube">▶</a>
+                <a href="#" aria-label="LinkedIn">in</a>
+            </div>
+        </div>
+    </footer>
+
     <script src="src/js/main.js"></script>
 </body>
 </html>
