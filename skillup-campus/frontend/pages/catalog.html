@@ -19,11 +19,22 @@
 <body>
   <header class="navbar">
     <a class="navbar__logo" href="../index.html">
-      <span class="navbar__logo-icon">📗</span>
-      <span class="navbar__logo-text">SkillUp<small>CAMPUS</small></span>
+      <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
     </a>
     <nav class="navbar__links">
-      <a href="catalog.html">Cursos</a>
+      <div class="navbar__dropdown">
+        <button type="button" class="navbar__dropdown-toggle" aria-expanded="false" aria-controls="cursos-menu">
+          Cursos <span class="navbar__dropdown-arrow">▾</span>
+        </button>
+        <div class="navbar__dropdown-menu" id="cursos-menu">
+          <a href="catalog.html">Todos</a>
+          <a href="catalog.html?categoria=diseno">Diseño</a>
+          <a href="catalog.html?categoria=negocios">Negocios</a>
+          <a href="catalog.html?categoria=tecnologia">Tecnología</a>
+          <a href="catalog.html?categoria=marketing">Marketing</a>
+          <a href="catalog.html?categoria=productividad">Productividad</a>
+        </div>
+      </div>
       <a href="../index.html#about">Sobre nosotros</a>
     </nav>
     <div class="navbar__search">
@@ -166,9 +177,9 @@
     <div class="footer__content">
       <span>© 2026 SkillUp. Todos los derechos reservados.</span>
       <div class="footer__social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="YouTube">▶</a>
-        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Facebook"><img src="../src/assets/icons/icon-facebook.png" alt=""></a>
+        <a href="#" aria-label="YouTube"><img src="../src/assets/icons/icon-youtube.png" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="../src/assets/icons/icon-linkedin.png" alt=""></a>
       </div>
     </div>
   </footer>

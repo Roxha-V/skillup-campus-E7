@@ -5,17 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skillup Campus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/styles/style.css">
 </head>
 <body>
     <header class="navbar">
         <a class="navbar__logo" href="index.html">
-            <span class="navbar__logo-icon">📗</span>
-            <span class="navbar__logo-text">SkillUp<small>CAMPUS</small></span>
+            <img class="navbar__logo-img" src="src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
         </a>
         <nav class="navbar__links">
-            <a href="pages/catalog.html">Cursos</a>
+            <div class="navbar__dropdown">
+                <button type="button" class="navbar__dropdown-toggle" aria-expanded="false" aria-controls="cursos-menu">
+                    Cursos <span class="navbar__dropdown-arrow">▾</span>
+                </button>
+                <div class="navbar__dropdown-menu" id="cursos-menu">
+                    <a href="pages/catalog.html">Todos</a>
+                    <a href="pages/catalog.html?categoria=diseno">Diseño</a>
+                    <a href="pages/catalog.html?categoria=negocios">Negocios</a>
+                    <a href="pages/catalog.html?categoria=tecnologia">Tecnología</a>
+                    <a href="pages/catalog.html?categoria=marketing">Marketing</a>
+                    <a href="pages/catalog.html?categoria=productividad">Productividad</a>
+                </div>
+            </div>
             <a href="#about">Sobre nosotros</a>
         </nav>
         <div class="navbar__search">
@@ -29,16 +40,183 @@
     </header>
 
     <div id="app">
-        <!-- Content will be rendered here -->
+        <main class="container">
+            <section class="hero">
+                <div class="hero__content">
+                    <h1 class="hero__title">Nuevas habilidades,<span class="highlight">mejores oportunidades</span></h1>
+                    <p class="hero__text">Aprovecha el 20% de descuento en cursos seleccionados especialmente para ti.</p>
+                    <a href="pages/catalog.html" class="btn btn-primary">Ahorra ahora</a>
+                </div>
+                <div class="hero__image">
+                    <img src="src/assets/images/hero-estudiante.png" alt="Estudiante usando su laptop">
+                </div>
+            </section>
+
+            <section class="stats">
+                <div class="stat">
+                    <span class="stat__icon">👥</span>
+                    <div>
+                        <div class="stat__value">+2,500</div>
+                        <div class="stat__label">Estudiantes</div>
+                    </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat__icon">⭐</span>
+                    <div>
+                        <div class="stat__value">4.8/5</div>
+                        <div class="stat__label">Calificación promedio</div>
+                    </div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat__icon">🎓</span>
+                    <div>
+                        <div class="stat__value">+10</div>
+                        <div class="stat__label">Instructores calificados</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <p class="section__eyebrow">Lo que dicen nuestros estudiantes</p>
+                <div class="section__header">
+                    <h2 class="section__title">Historias reales, <span class="highlight">resultados reales.</span></h2>
+                    <div class="carousel-nav">
+                        <button type="button" aria-label="Anterior"><img src="src/assets/icons/icon-arrow.png" alt="" class="icon-arrow icon-arrow--prev"></button>
+                        <button type="button" aria-label="Siguiente"><img src="src/assets/icons/icon-arrow.png" alt="" class="icon-arrow"></button>
+                    </div>
+                </div>
+                <div class="testimonials-grid">
+                    <article class="testimonial-card">
+                        <p class="testimonial-card__quote">“</p>
+                        <p class="testimonial-card__text">Los cursos de SkillUp me ayudaron a conseguir mi primer trabajo como diseñadora UX. Los contenidos son claros, prácticos y muy completos.</p>
+                        <div class="testimonial-card__author">
+                            <img class="testimonial-card__avatar" src="https://i.pravatar.cc/80?img=47" alt="">
+                            <div>
+                                <div class="testimonial-card__name">Valenina R.</div>
+                                <div class="testimonial-card__role">Diseñadora UX</div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card">
+                        <p class="testimonial-card__quote">“</p>
+                        <p class="testimonial-card__text">Gracias a SkillUp adquirí habilidades en marketing digital que me permitieron hacer crecer mi negocio y llegar a más clientes.</p>
+                        <div class="testimonial-card__author">
+                            <img class="testimonial-card__avatar" src="https://i.pravatar.cc/80?img=12" alt="">
+                            <div>
+                                <div class="testimonial-card__name">Carlos M.</div>
+                                <div class="testimonial-card__role">Emprendedor</div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card">
+                        <p class="testimonial-card__quote">“</p>
+                        <p class="testimonial-card__text">Gracias a SkillUp adquirí habilidades en marketing digital que me permitieron hacer crecer mi negocio y llegar a más clientes.</p>
+                        <div class="testimonial-card__author">
+                            <img class="testimonial-card__avatar" src="https://i.pravatar.cc/80?img=32" alt="">
+                            <div>
+                                <div class="testimonial-card__name">Talia V.</div>
+                                <div class="testimonial-card__role">Estudiante de negocio</div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section">
+                <p class="section__eyebrow">Cursos destacados</p>
+                <div class="section__header">
+                    <h2 class="section__title">Empieza a aprender hoy</h2>
+                    <div class="carousel-nav">
+                        <button type="button" aria-label="Anterior"><img src="src/assets/icons/icon-arrow.png" alt="" class="icon-arrow icon-arrow--prev"></button>
+                        <button type="button" aria-label="Siguiente"><img src="src/assets/icons/icon-arrow.png" alt="" class="icon-arrow"></button>
+                    </div>
+                </div>
+                <div class="course-grid course-grid--4">
+                    <article class="course-card">
+                        <div class="course-card__image" style="background-color:#0f172a; color:#fff; display:flex; align-items:center; justify-content:center; font-size:2rem;">🎨</div>
+                        <div class="course-card__body">
+                            <span class="badge">Diseño</span>
+                            <h3 class="course-card__title">Diseño UI/UX con Figma desde cero</h3>
+                            <p class="course-card__author">Ana Gómez</p>
+                            <div class="course-card__meta">
+                                <span class="course-card__rating"><span class="star">★</span> 4.9</span>
+                                <span>12 horas</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="course-card">
+                        <div class="course-card__image" style="background-color:#1e293b; color:#fff; display:flex; align-items:center; justify-content:center; font-size:2rem;">📊</div>
+                        <div class="course-card__body">
+                            <span class="badge">Negocios</span>
+                            <h3 class="course-card__title">Marketing Digital para emprendedores</h3>
+                            <p class="course-card__author">Luis Martínez</p>
+                            <div class="course-card__meta">
+                                <span class="course-card__rating"><span class="star">★</span> 4.8</span>
+                                <span>16 horas</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="course-card">
+                        <div class="course-card__image" style="background-color:#0f172a; color:#fff; display:flex; align-items:center; justify-content:center; font-size:2rem;">🗒️</div>
+                        <div class="course-card__body">
+                            <span class="badge">Productividad</span>
+                            <h3 class="course-card__title">Notion: Organiza tu trabajo y tu vida</h3>
+                            <p class="course-card__author">Laura Vega</p>
+                            <div class="course-card__meta">
+                                <span class="course-card__rating"><span class="star">★</span> 4.6</span>
+                                <span>5 horas</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="course-card">
+                        <div class="course-card__image" style="background-color:#0f172a; color:#fff; display:flex; align-items:center; justify-content:center; font-size:2rem;">🐍</div>
+                        <div class="course-card__body">
+                            <span class="badge">Tecnología</span>
+                            <h3 class="course-card__title">Python para principiantes</h3>
+                            <p class="course-card__author">Diego Sánchez</p>
+                            <div class="course-card__meta">
+                                <span class="course-card__rating"><span class="star">★</span> 4.8</span>
+                                <span>16 horas</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section">
+                <p class="section__eyebrow">Explora por categorías</p>
+                <h2 class="section__title" style="margin-bottom: var(--space-lg);">Encuentra lo que necesitas</h2>
+                <div class="category-pills">
+                    <a class="category-pill" href="pages/catalog.html"><img src="src/assets/icons/category-diseno.png" alt="Diseño"></a>
+                    <a class="category-pill" href="pages/catalog.html"><img src="src/assets/icons/category-negocios.png" alt="Negocios"></a>
+                    <a class="category-pill" href="pages/catalog.html"><img src="src/assets/icons/category-tecnologia.png" alt="Tecnología"></a>
+                    <a class="category-pill" href="pages/catalog.html"><img src="src/assets/icons/category-marketing.png" alt="Marketing"></a>
+                    <a class="category-pill" href="pages/catalog.html"><img src="src/assets/icons/category-productividad.png" alt="Productividad"></a>
+                </div>
+            </section>
+
+            <section class="cta-banner">
+                <div class="cta-banner__content">
+                    <span class="cta-banner__icon">🎓</span>
+                    <div>
+                        <p class="cta-banner__title">Únete a nuestra comunidad de aprendizaje</p>
+                        <p class="cta-banner__text">Miles de estudiantes ya están desarrollando nuevas habilidades y transformando su futuro.</p>
+                    </div>
+                </div>
+                <a class="btn btn-primary" href="pages/register.html">Regístrate gratis</a>
+            </section>
+        </main>
     </div>
 
     <footer class="footer">
         <div class="footer__content">
             <span>© 2026 SkillUp. Todos los derechos reservados.</span>
             <div class="footer__social">
-                <a href="#" aria-label="Facebook">f</a>
-                <a href="#" aria-label="YouTube">▶</a>
-                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="Facebook"><img src="src/assets/icons/icon-facebook.png" alt=""></a>
+                <a href="#" aria-label="YouTube"><img src="src/assets/icons/icon-youtube.png" alt=""></a>
+                <a href="#" aria-label="LinkedIn"><img src="src/assets/icons/icon-linkedin.png" alt=""></a>
             </div>
         </div>
     </footer>
