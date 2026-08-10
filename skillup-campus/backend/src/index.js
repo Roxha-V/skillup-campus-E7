@@ -8,7 +8,12 @@ const PORT = 3001;
 app.use(express.json());
 // Importar rutas
 const authRoutes = require('./routes/auth');
+const courseRoutes = require('./routes/coursePublicRoutes');
+app.use('/api/courses', courseRoutes);
 app.use('/api/auth', authRoutes);
+
+const courseRoutesAdmin = require('./routes/courseAdminRoutes');
+app.use('/api/admin/courses', courseRoutesAdmin);
 
 
 app.get('/', (req, res) => {
