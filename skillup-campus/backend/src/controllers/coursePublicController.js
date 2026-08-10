@@ -1,8 +1,8 @@
-const course = require('../models/courseModel');
+const Course = require('../models/courses');
 
 exports.getAllCourses = async (req, res) => {
     try {
-        const courses = await course.findAll();
+        const courses = await Course.findAll();
         if (!courses || courses.length === 0) {
             res.status(404).json({ error: 'No se encontraron cursos' });
         }

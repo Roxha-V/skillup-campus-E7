@@ -12,8 +12,8 @@ const courseRoutes = require('./routes/coursePublicRoutes');
 app.use('/api/courses', courseRoutes);
 app.use('/api/auth', authRoutes);
 
-const courseRoutesAdmin = require('./routes/courseAdminRoutes');
-app.use('/api/admin/courses', courseRoutesAdmin);
+//const courseRoutesAdmin = require('./routes/courseAdminRoutes');
+//app.use('/api/admin/courses', courseRoutesAdmin);
 
 
 app.get('/', (req, res) => {

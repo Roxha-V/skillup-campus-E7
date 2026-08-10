@@ -26,4 +26,9 @@ const Course = sequelize.define('Course', {
         type: DataTypes.TEXT,
         allowNull: true
     }
+}, {
+  tableName: 'courses',
+  timestamps: false
 });
+
+module.exports = Course;
