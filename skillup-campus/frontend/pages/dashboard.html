@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · SkillUp Campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="navbar__logo" href="../index.html">
+      <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
+    </a>
+    <div class="navbar__actions">
+      <button type="button" class="btn btn-outline" id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="page-header">
+    <h1>¡Bienvenido de nuevo!</h1>
+    <p>Este es tu dashboard. Pronto vas a ver acá tus cursos en curso.</p>
+  </main>
+
+  <script>
+    if (!localStorage.getItem('token')) {
+      window.location.href = 'login.html';
+    }
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>
