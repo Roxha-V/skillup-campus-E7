@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todos los cursos · SkillUp Campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/style.css">
+  <style>
+    .course-card__image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <a class="navbar__logo" href="../index.html">
+      <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
+    </a>
+    <nav class="navbar__links">
+      <div class="navbar__dropdown">
+        <button type="button" class="navbar__dropdown-toggle" aria-expanded="false" aria-controls="cursos-menu">
+          Cursos <span class="navbar__dropdown-arrow">▾</span>
+        </button>
+        <div class="navbar__dropdown-menu" id="cursos-menu">
+          <a href="catalog.html">Todos</a>
+          <a href="catalog.html?categoria=diseno">Diseño</a>
+          <a href="catalog.html?categoria=negocios">Negocios</a>
+          <a href="catalog.html?categoria=tecnologia">Tecnología</a>
+          <a href="catalog.html?categoria=marketing">Marketing</a>
+          <a href="catalog.html?categoria=productividad">Productividad</a>
+        </div>
+      </div>
+      <a href="../index.html#about">Sobre nosotros</a>
+    </nav>
+    <div class="navbar__search">
+      🔍
+      <input type="search" placeholder="Buscar cursos">
+    </div>
+    <div class="navbar__actions">
+      <a class="btn btn-outline" href="login.html">Iniciar sesión</a>
+      <a class="btn btn-primary" href="register.html">Regístrate</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <h1 class="page-header__title">Todos los cursos</h1>
+      <p class="page-header__subtitle">Encuentra el curso perfecto para ti</p>
+    </div>
+
+    <div class="catalog-toolbar">
+      <div class="search-bar">
+        🔍
+        <input type="search" placeholder="Buscar cursos">
+      </div>
+      <button type="button" class="filters-btn">☰ Filtros</button>
+    </div>
+
+    <div class="catalog-layout">
+      <aside class="categories">
+        <p class="categories__title">Categorías</p>
+        <a href="#" class="is-active">Todos</a>
+        <a href="#">Diseño</a>
+        <a href="#">Tecnología</a>
+        <a href="#">Negocios</a>
+        <a href="#">Marketing</a>
+        <a href="#">Productividad</a>
+        <a href="#">Con descuento</a>
+      </aside>
+
+      <section>
+        <div class="course-grid">
+          <article class="course-card">
+            <div class="course-card__image" style="background-color:#0f172a; color:#fff;">🎨</div>
+            <div class="course-card__body">
+              <span class="badge">Diseño</span>
+              <h2 class="course-card__title">Diseño UI/UX con Figma desde cero</h2>
+              <p class="course-card__author">Ana Gómez</p>
+              <div class="course-card__meta">
+                <span class="course-card__rating"><span class="star">★</span> 4.9</span>
+                <span>12 horas</span>
+              </div>
+              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card__image" style="background-color:#1e293b; color:#fff;">📊</div>
+            <div class="course-card__body">
+              <span class="badge">Negocios</span>
+              <h2 class="course-card__title">Marketing Digital para emprendedores</h2>
+              <p class="course-card__author">Luis Martínez</p>
+              <div class="course-card__meta">
+                <span class="course-card__rating"><span class="star">★</span> 4.8</span>
+                <span>16 horas</span>
+              </div>
+              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card__image" style="background-color:#0f172a; color:#fff;">🗒️</div>
+            <div class="course-card__body">
+              <span class="badge">Productividad</span>
+              <h2 class="course-card__title">Notion: Organiza tu trabajo y tu vida</h2>
+              <p class="course-card__author">Laura Vega</p>
+              <div class="course-card__meta">
+                <span class="course-card__rating"><span class="star">★</span> 4.6</span>
+                <span>5 horas</span>
+              </div>
+              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card__image" style="background: linear-gradient(135deg,#22d3ee,#7c3aed); color:#fff;">🖌️</div>
+            <div class="course-card__body">
+              <span class="badge">Diseño</span>
+              <h2 class="course-card__title">Canva para principiantes</h2>
+              <p class="course-card__author">Carmen Quinteros</p>
+              <div class="course-card__meta">
+                <span class="course-card__rating"><span class="star">★</span> 4.7</span>
+                <span>10 horas</span>
+              </div>
+              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card__image" style="background-color:#e2e8f0;">💡</div>
+            <div class="course-card__body">
+              <span class="badge">Negocios</span>
+              <h2 class="course-card__title">Finanzas para emprendedores</h2>
+              <p class="course-card__author">Luis Martínez</p>
+              <div class="course-card__meta">
+                <span class="course-card__rating"><span class="star">★</span> 4.5</span>
+                <span>12 horas</span>
+              </div>
+              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card__image" style="background-color:#0f172a; color:#fff;">🐍</div>
+            <div class="course-card__body">
+              <span class="badge">Tecnología</span>
+              <h2 class="course-card__title">Python para principiantes</h2>
+              <p class="course-card__author">Diego Sánchez</p>
+              <div class="course-card__meta">
+                <span class="course-card__rating"><span class="star">★</span> 4.8</span>
+                <span>16 horas</span>
+              </div>
+              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="pagination">
+          <span>Mostrando 1-6 de 24 cursos</span>
+          <div class="pagination__pages">
+            <a href="#" class="is-active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__content">
+      <span>© 2026 SkillUp. Todos los derechos reservados.</span>
+      <div class="footer__social">
+        <a href="#" aria-label="Facebook"><img src="../src/assets/icons/icon-facebook.png" alt=""></a>
+        <a href="#" aria-label="YouTube"><img src="../src/assets/icons/icon-youtube.png" alt=""></a>
+        <a href="#" aria-label="LinkedIn"><img src="../src/assets/icons/icon-linkedin.png" alt=""></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../src/js/main.js"></script>
+</body>
+</html>
