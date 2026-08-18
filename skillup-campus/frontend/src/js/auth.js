@@ -40,7 +40,8 @@ function initLoginForm() {
     try {
       const data = await login(email, password);
       localStorage.setItem('token', data.token);
-      window.location.href = 'dashboard.html';
+      const redirect = new URLSearchParams(window.location.search).get('redirect');
+      window.location.href = redirect || 'dashboard.html';
     } catch (err) {
       showFormError(form, err.message);
     } finally {

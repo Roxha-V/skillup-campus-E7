@@ -1,12 +1,13 @@
 const API_URL = 'http://localhost:3001/api';
 
 async function apiRequest(path, options = {}) {
+  const token = localStorage.getItem('token');
+  const headers = { 'Content-Type': 'application/json', ...options.headers };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   let res;
   try {
-    res = await fetch(`${API_URL}${path}`, {
-      headers: { 'Content-Type': 'application/json' },
-      ...options,
-    });
+    res = await fetch(`${API_URL}${path}`, { ...options, headers });
   } catch (err) {
     throw new Error('No se pudo conectar con el servidor. Intenta nuevamente más tarde.');
   }
@@ -37,4 +38,23 @@ function register(name, email, password) {
     method: 'POST',
     body: JSON.stringify({ name, email, password }),
   });
+}
+
+function getCourses() {
+  return apiRequest('/courses');
+}
+
+function getCourseById(id) {
+  return apiRequest(`/courses/${id}`);
+}
+
+function enrollInCourse(courseId) {
+  return apiRequest('/enrollments', {
+    method: 'POST',
+    body: JSON.stringify({ courseId }),
+  });
+}
+
+function getMyEnrollments() {
+  return apiRequest('/enrollments/me');
 }
