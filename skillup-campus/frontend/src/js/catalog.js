@@ -9,18 +9,20 @@ const CATEGORY_ICONS = {
 function renderCourseCard(course) {
   const category = course.category || 'General';
   const icon = CATEGORY_ICONS[course.category] || '📚';
+  const imageStyle = course.image_path
+    ? `background-image:url('${course.image_path}'); background-size:cover; background-position:center;`
+    : 'background-color:#0f172a; color:#fff;';
 
   const card = document.createElement('article');
   card.className = 'course-card';
   card.innerHTML = `
-    <div class="course-card__image" style="background-color:#0f172a; color:#fff;">${icon}</div>
+    <div class="course-card__image" style="${imageStyle}">${course.image_path ? '' : icon}</div>
     <div class="course-card__body">
       <span class="badge">${category}</span>
-      <h2 class="course-card__title">${course.title || course.name || 'Curso'}</h2>
-      <p class="course-card__author">${course.instructor || course.author || ''}</p>
+      <h2 class="course-card__title">${course.name || 'Curso'}</h2>
+      <p class="course-card__author">${course.professor || ''}</p>
       <div class="course-card__meta">
-        <span class="course-card__rating"><span class="star">★</span> ${course.rating ?? '—'}</span>
-        <span>${course.duration ? `${course.duration} horas` : ''}</span>
+        <span class="course-card__rating"><span class="star">★</span> ${course.votes ?? '—'}</span>
       </div>
       <a class="btn btn-outline course-card__cta" href="course-detail.html?id=${course.id}">Ver más</a>
     </div>

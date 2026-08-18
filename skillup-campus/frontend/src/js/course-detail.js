@@ -6,12 +6,11 @@ function renderCourseDetail(course) {
   const container = document.getElementById('course-detail');
   container.innerHTML = `
     <span class="badge">${course.category || 'General'}</span>
-    <h1 class="page-header__title">${course.title || course.name || 'Curso'}</h1>
+    <h1 class="page-header__title">${course.name || 'Curso'}</h1>
     <p class="page-header__subtitle">${course.description || ''}</p>
-    <p class="course-card__author">Dictado por ${course.instructor || course.author || 'SkillUp Campus'}</p>
+    <p class="course-card__author">Dictado por ${course.professor || 'SkillUp Campus'}</p>
     <div class="course-card__meta">
-      <span class="course-card__rating"><span class="star">★</span> ${course.rating ?? '—'}</span>
-      <span>${course.duration ? `${course.duration} horas` : ''}</span>
+      <span class="course-card__rating"><span class="star">★</span> ${course.votes ?? '—'}</span>
     </div>
     <button type="button" id="enroll-btn" class="btn btn-primary">Inscribirme</button>
     <p id="enroll-message"></p>
