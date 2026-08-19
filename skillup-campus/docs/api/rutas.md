@@ -17,6 +17,8 @@ Resumen breve de las rutas disponibles en el backend.
 - **POST** `/api/auth/login` : Iniciar sesión y obtener token.
   - Controller: `authController.login`
   - Middleware: ninguno
+    - Usuario Admin: Admin
+    - Pass Admin: admin1234 // Aqui deberias recibir el token para el middleware
 
 - **GET** `/api/auth/profile` : Obtener perfil del usuario autenticado.
   - Controller: (ruta protegida, manejada por `authMiddleware`)
