@@ -14,6 +14,7 @@
       <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
     </a>
     <div class="navbar__actions">
+      <a class="btn btn-outline" href="admin.html" id="admin-link" hidden>Panel admin</a>
       <button type="button" class="btn btn-outline" id="logout-btn">Cerrar sesión</button>
     </div>
   </header>
@@ -35,6 +36,11 @@
   <script src="../src/js/catalog.js"></script>
   <script>
     requireAuth();
+
+    const currentUser = getUserFromToken();
+    if (currentUser && currentUser.role === 'admin') {
+      document.getElementById('admin-link').hidden = false;
+    }
 
     document.getElementById('logout-btn').addEventListener('click', () => {
       localStorage.removeItem('token');

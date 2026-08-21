@@ -58,3 +58,27 @@ function enrollInCourse(courseId) {
 function getMyEnrollments() {
   return apiRequest('/enrollments/me');
 }
+
+function createCourse(course) {
+  return apiRequest('/courses', {
+    method: 'POST',
+    body: JSON.stringify(course),
+  });
+}
+
+function updateCourse(id, course) {
+  return apiRequest(`/courses/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(course),
+  });
+}
+
+function deleteCourse(id) {
+  return apiRequest(`/courses/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+function getAdminUsers() {
+  return apiRequest('/admin/users');
+}
