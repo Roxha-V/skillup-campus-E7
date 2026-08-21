@@ -9,26 +9,38 @@
   <link rel="stylesheet" href="../src/styles/style.css">
 </head>
 <body>
-  <header class="navbar">
-    <a class="navbar__logo" href="../index.html">
-      <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
-    </a>
-    <div class="navbar__actions">
-      <a class="btn btn-outline" href="admin.html" id="admin-link" hidden>Panel admin</a>
-      <button type="button" class="btn btn-outline" id="logout-btn">Cerrar sesión</button>
-    </div>
-  </header>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="sidebar__logo" href="../index.html">
+        <img class="sidebar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
+      </a>
+      <nav class="sidebar__nav">
+        <a class="sidebar__link is-active" href="dashboard.html"><span class="sidebar__icon">🏠</span> Inicio</a>
+        <a class="sidebar__link" href="dashboard.html"><span class="sidebar__icon">🎓</span> Mis cursos</a>
+        <a class="sidebar__link" href="catalog.html"><span class="sidebar__icon">🔍</span> Catálogo</a>
+        <a class="sidebar__link" href="admin.html" id="admin-link" hidden><span class="sidebar__icon">⚙️</span> Panel admin</a>
+      </nav>
+      <button type="button" class="sidebar__link" id="logout-btn"><span class="sidebar__icon">↩️</span> Cerrar sesión</button>
+    </aside>
 
-  <main class="container">
-    <div class="page-header">
-      <h1 class="page-header__title">¡Bienvenido de nuevo!</h1>
-      <p class="page-header__subtitle">Estos son tus cursos</p>
-    </div>
+    <main class="app-main">
+      <div class="app-topbar">
+        <div>
+          <h1 class="app-topbar__title">¡Hola de nuevo! 👋</h1>
+          <p class="app-topbar__subtitle">Seguí aprendiendo y alcanzá tus metas.</p>
+        </div>
+      </div>
 
-    <div class="course-grid" id="my-courses">
-      <p>Cargando tus cursos...</p>
-    </div>
-  </main>
+      <div class="section__header">
+        <h2 class="section__title">Mis cursos</h2>
+        <a href="catalog.html">Ver todos →</a>
+      </div>
+
+      <div class="course-grid" id="my-courses">
+        <p>Cargando tus cursos...</p>
+      </div>
+    </main>
+  </div>
 
   <script src="../src/js/main.js"></script>
   <script src="../src/js/api.js"></script>

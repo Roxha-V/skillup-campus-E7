@@ -15,6 +15,14 @@ function clearAdminMessage(elementId) {
   el.className = '';
 }
 
+function showCourseFormSection() {
+  document.getElementById('course-form-section').hidden = false;
+}
+
+function hideCourseFormSection() {
+  document.getElementById('course-form-section').hidden = true;
+}
+
 function fillCourseForm(course) {
   const form = document.getElementById('course-form');
   form.name.value = course.name || '';
@@ -27,7 +35,7 @@ function fillCourseForm(course) {
   editingCourseOriginal = { ...course };
   document.getElementById('course-form-title').textContent = 'Editar curso';
   document.getElementById('course-form-submit').textContent = 'Guardar cambios';
-  document.getElementById('course-form-cancel').hidden = false;
+  showCourseFormSection();
 }
 
 function resetCourseForm() {
@@ -37,8 +45,8 @@ function resetCourseForm() {
   editingCourseOriginal = null;
   document.getElementById('course-form-title').textContent = 'Crear curso';
   document.getElementById('course-form-submit').textContent = 'Crear curso';
-  document.getElementById('course-form-cancel').hidden = true;
   clearAdminMessage('course-form-message');
+  hideCourseFormSection();
 }
 
 function renderCoursesTable(courses) {
@@ -57,8 +65,8 @@ function renderCoursesTable(courses) {
       <td>${course.category || ''}</td>
       <td>${course.professor || ''}</td>
       <td class="admin-table__actions">
-        <button type="button" class="btn btn-outline" data-action="edit" data-id="${course.id}">Editar</button>
-        <button type="button" class="btn btn-danger" data-action="delete" data-id="${course.id}">Eliminar</button>
+        <button type="button" class="icon-btn" data-action="edit" data-id="${course.id}" aria-label="Editar curso" title="Editar">✏️</button>
+        <button type="button" class="icon-btn icon-btn--danger" data-action="delete" data-id="${course.id}" aria-label="Eliminar curso" title="Eliminar">🗑️</button>
       </td>
     `;
     tbody.appendChild(row);
@@ -73,6 +81,7 @@ async function loadCoursesTable() {
     const courses = await getCourses();
     window.__adminCourses = courses || [];
     renderCoursesTable(window.__adminCourses);
+    document.getElementById('stat-total-courses').textContent = window.__adminCourses.length;
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="4" class="form-error">${err.message}</td></tr>`;
   }
@@ -105,6 +114,7 @@ async function loadUsersTable() {
   try {
     const users = await getAdminUsers();
     renderUsersTable(users);
+    document.getElementById('stat-total-users').textContent = users ? users.length : 0;
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="3" class="form-error">${err.message}</td></tr>`;
   }
@@ -161,6 +171,12 @@ function initCourseForm() {
 
   cancelBtn.addEventListener('click', resetCourseForm);
 
+  document.getElementById('new-course-btn').addEventListener('click', () => {
+    resetCourseForm();
+    showCourseFormSection();
+    document.getElementById('course-form-section').scrollIntoView({ behavior: 'smooth' });
+  });
+
   document.getElementById('courses-table-body').addEventListener('click', async (event) => {
     const button = event.target.closest('button[data-action]');
     if (!button) return;
@@ -171,7 +187,7 @@ function initCourseForm() {
       const course = (window.__adminCourses || []).find((c) => String(c.id) === String(id));
       if (course) {
         fillCourseForm(course);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById('course-form-section').scrollIntoView({ behavior: 'smooth' });
       }
       return;
     }

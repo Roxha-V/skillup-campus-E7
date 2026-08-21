@@ -10,112 +10,120 @@
   <link rel="stylesheet" href="../src/styles/admin.css">
 </head>
 <body>
-  <header class="navbar">
-    <a class="navbar__logo" href="../index.html">
-      <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
-    </a>
-    <nav class="navbar__links">
-      <a href="dashboard.html">Mi dashboard</a>
-      <a href="catalog.html">Catálogo</a>
-    </nav>
-    <div class="navbar__actions">
-      <button type="button" class="btn btn-outline" id="logout-btn">Cerrar sesión</button>
-    </div>
-  </header>
+  <div class="app-shell">
+    <aside class="sidebar sidebar--dark">
+      <a class="sidebar__logo" href="../index.html">
+        <img class="sidebar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
+      </a>
+      <nav class="sidebar__nav">
+        <a class="sidebar__link" href="dashboard.html"><span class="sidebar__icon">🏠</span> Dashboard</a>
+        <a class="sidebar__link is-active" href="admin.html"><span class="sidebar__icon">🎓</span> Cursos</a>
+        <a class="sidebar__link" href="admin.html#users-section"><span class="sidebar__icon">👥</span> Usuarios</a>
+      </nav>
+      <button type="button" class="sidebar__link" id="logout-btn"><span class="sidebar__icon">↩️</span> Cerrar sesión</button>
+    </aside>
 
-  <main class="container">
-    <div class="page-header">
-      <h1 class="page-header__title">Panel de administración</h1>
-      <p class="page-header__subtitle">Gestioná los cursos y los usuarios de la plataforma</p>
-    </div>
-
-    <section class="admin-section">
-      <h2 class="admin-section__title" id="course-form-title">Crear curso</h2>
-      <p id="course-form-message"></p>
-      <form id="course-form" class="admin-form">
-        <div class="form-group">
-          <label for="course-name">Nombre del curso</label>
-          <input type="text" id="course-name" name="name" required>
+    <main class="app-main">
+      <div class="app-topbar">
+        <div>
+          <h1 class="app-topbar__title">Cursos</h1>
+          <p class="app-topbar__subtitle">Gestioná los cursos y los usuarios de la plataforma.</p>
         </div>
+        <button type="button" class="btn btn-primary" id="new-course-btn">+ Nuevo curso</button>
+      </div>
 
-        <div class="admin-form__row">
+      <section class="admin-section">
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Curso</th>
+                <th>Categoría</th>
+                <th>Profesor/a</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="courses-table-body">
+              <tr><td colspan="4">Cargando cursos...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="app-stats">
+        <div class="app-stat-card">
+          <div class="app-stat-card__value" id="stat-total-courses">—</div>
+          <div class="app-stat-card__label">Total cursos</div>
+        </div>
+        <div class="app-stat-card">
+          <div class="app-stat-card__value" id="stat-total-users">—</div>
+          <div class="app-stat-card__label">Usuarios registrados</div>
+        </div>
+      </div>
+
+      <section class="admin-section" id="course-form-section" hidden>
+        <h2 class="admin-section__title" id="course-form-title">Crear curso</h2>
+        <p id="course-form-message"></p>
+        <form id="course-form" class="admin-form">
           <div class="form-group">
-            <label for="course-category">Categoría</label>
-            <select id="course-category" name="category" required>
-              <option value="tecnologia">Tecnología</option>
-              <option value="diseno">Diseño</option>
-              <option value="negocios">Negocios</option>
-              <option value="marketing">Marketing</option>
-              <option value="productividad">Productividad</option>
-            </select>
+            <label for="course-name">Nombre del curso</label>
+            <input type="text" id="course-name" name="name" required>
+          </div>
+
+          <div class="admin-form__row">
+            <div class="form-group">
+              <label for="course-category">Categoría</label>
+              <select id="course-category" name="category" required>
+                <option value="tecnologia">Tecnología</option>
+                <option value="diseno">Diseño</option>
+                <option value="negocios">Negocios</option>
+                <option value="marketing">Marketing</option>
+                <option value="productividad">Productividad</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="course-professor">Profesor/a</label>
+              <input type="text" id="course-professor" name="professor" required>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="course-professor">Profesor/a</label>
-            <input type="text" id="course-professor" name="professor" required>
+            <label for="course-image">URL de la imagen (opcional)</label>
+            <input type="text" id="course-image" name="image_path" placeholder="/src/assets/images/...">
           </div>
+
+          <div class="form-group">
+            <label for="course-description">Descripción</label>
+            <textarea id="course-description" name="description" rows="3" required></textarea>
+          </div>
+
+          <div class="admin-form__actions">
+            <button type="submit" class="btn btn-primary" id="course-form-submit">Crear curso</button>
+            <button type="button" class="btn btn-outline" id="course-form-cancel">Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="admin-section" id="users-section">
+        <h2 class="admin-section__title">Usuarios</h2>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body">
+              <tr><td colspan="3">Cargando usuarios...</td></tr>
+            </tbody>
+          </table>
         </div>
-
-        <div class="form-group">
-          <label for="course-image">URL de la imagen (opcional)</label>
-          <input type="text" id="course-image" name="image_path" placeholder="/src/assets/images/...">
-        </div>
-
-        <div class="form-group">
-          <label for="course-description">Descripción</label>
-          <textarea id="course-description" name="description" rows="3" required></textarea>
-        </div>
-
-        <div class="admin-form__actions">
-          <button type="submit" class="btn btn-primary" id="course-form-submit">Crear curso</button>
-          <button type="button" class="btn btn-outline" id="course-form-cancel" hidden>Cancelar edición</button>
-        </div>
-      </form>
-    </section>
-
-    <section class="admin-section">
-      <h2 class="admin-section__title">Cursos</h2>
-      <div class="admin-table-wrapper">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Profesor/a</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="courses-table-body">
-            <tr><td colspan="4">Cargando cursos...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="admin-section">
-      <h2 class="admin-section__title">Usuarios</h2>
-      <div class="admin-table-wrapper">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Rol</th>
-            </tr>
-          </thead>
-          <tbody id="users-table-body">
-            <tr><td colspan="3">Cargando usuarios...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer__content">
-      <span>© 2026 SkillUp. Todos los derechos reservados.</span>
-    </div>
-  </footer>
+      </section>
+    </main>
+  </div>
 
   <script src="../src/js/main.js"></script>
   <script src="../src/js/api.js"></script>
