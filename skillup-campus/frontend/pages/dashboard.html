@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · SkillUp Campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="navbar__logo" href="../index.html">
+      <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
+    </a>
+    <div class="navbar__actions">
+      <a class="btn btn-outline" href="admin.html" id="admin-link" hidden>Panel admin</a>
+      <button type="button" class="btn btn-outline" id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <h1 class="page-header__title">¡Bienvenido de nuevo!</h1>
+      <p class="page-header__subtitle">Estos son tus cursos</p>
+    </div>
+
+    <div class="course-grid" id="my-courses">
+      <p>Cargando tus cursos...</p>
+    </div>
+  </main>
+
+  <script src="../src/js/main.js"></script>
+  <script src="../src/js/api.js"></script>
+  <script src="../src/js/guard.js"></script>
+  <script src="../src/js/catalog.js"></script>
+  <script>
+    requireAuth();
+
+    const currentUser = getUserFromToken();
+    if (currentUser && currentUser.role === 'admin') {
+      document.getElementById('admin-link').hidden = false;
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    });
+
+    async function loadMyCourses() {
+      const grid = document.getElementById('my-courses');
+      try {
+        const enrollments = await getMyEnrollments();
+
+        if (!enrollments || enrollments.length === 0) {
+          grid.innerHTML = '<p>Todavía no te inscribiste a ningún curso. <a href="catalog.html">Explorá el catálogo</a>.</p>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        enrollments.forEach((enrollment) => {
+          const course = enrollment.course || enrollment;
+          grid.appendChild(renderCourseCard(course));
+        });
+      } catch (err) {
+        grid.innerHTML = `<p class="form-error">${err.message}</p>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMyCourses);
+  </script>
+</body>
+</html>

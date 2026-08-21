@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de administración · SkillUp Campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/style.css">
+  <link rel="stylesheet" href="../src/styles/admin.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="navbar__logo" href="../index.html">
+      <img class="navbar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
+    </a>
+    <nav class="navbar__links">
+      <a href="dashboard.html">Mi dashboard</a>
+      <a href="catalog.html">Catálogo</a>
+    </nav>
+    <div class="navbar__actions">
+      <button type="button" class="btn btn-outline" id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <h1 class="page-header__title">Panel de administración</h1>
+      <p class="page-header__subtitle">Gestioná los cursos y los usuarios de la plataforma</p>
+    </div>
+
+    <section class="admin-section">
+      <h2 class="admin-section__title" id="course-form-title">Crear curso</h2>
+      <p id="course-form-message"></p>
+      <form id="course-form" class="admin-form">
+        <div class="form-group">
+          <label for="course-name">Nombre del curso</label>
+          <input type="text" id="course-name" name="name" required>
+        </div>
+
+        <div class="admin-form__row">
+          <div class="form-group">
+            <label for="course-category">Categoría</label>
+            <select id="course-category" name="category" required>
+              <option value="tecnologia">Tecnología</option>
+              <option value="diseno">Diseño</option>
+              <option value="negocios">Negocios</option>
+              <option value="marketing">Marketing</option>
+              <option value="productividad">Productividad</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="course-professor">Profesor/a</label>
+            <input type="text" id="course-professor" name="professor" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="course-image">URL de la imagen (opcional)</label>
+          <input type="text" id="course-image" name="image_path" placeholder="/src/assets/images/...">
+        </div>
+
+        <div class="form-group">
+          <label for="course-description">Descripción</label>
+          <textarea id="course-description" name="description" rows="3" required></textarea>
+        </div>
+
+        <div class="admin-form__actions">
+          <button type="submit" class="btn btn-primary" id="course-form-submit">Crear curso</button>
+          <button type="button" class="btn btn-outline" id="course-form-cancel" hidden>Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="admin-section">
+      <h2 class="admin-section__title">Cursos</h2>
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Profesor/a</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="courses-table-body">
+            <tr><td colspan="4">Cargando cursos...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h2 class="admin-section__title">Usuarios</h2>
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+            </tr>
+          </thead>
+          <tbody id="users-table-body">
+            <tr><td colspan="3">Cargando usuarios...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__content">
+      <span>© 2026 SkillUp. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script src="../src/js/main.js"></script>
+  <script src="../src/js/api.js"></script>
+  <script src="../src/js/guard.js"></script>
+  <script src="../src/js/admin.js"></script>
+  <script>
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

@@ -74,101 +74,7 @@
       </aside>
 
       <section>
-        <div class="course-grid">
-          <article class="course-card">
-            <div class="course-card__image" style="background-color:#0f172a; color:#fff;">🎨</div>
-            <div class="course-card__body">
-              <span class="badge">Diseño</span>
-              <h2 class="course-card__title">Diseño UI/UX con Figma desde cero</h2>
-              <p class="course-card__author">Ana Gómez</p>
-              <div class="course-card__meta">
-                <span class="course-card__rating"><span class="star">★</span> 4.9</span>
-                <span>12 horas</span>
-              </div>
-              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-card__image" style="background-color:#1e293b; color:#fff;">📊</div>
-            <div class="course-card__body">
-              <span class="badge">Negocios</span>
-              <h2 class="course-card__title">Marketing Digital para emprendedores</h2>
-              <p class="course-card__author">Luis Martínez</p>
-              <div class="course-card__meta">
-                <span class="course-card__rating"><span class="star">★</span> 4.8</span>
-                <span>16 horas</span>
-              </div>
-              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-card__image" style="background-color:#0f172a; color:#fff;">🗒️</div>
-            <div class="course-card__body">
-              <span class="badge">Productividad</span>
-              <h2 class="course-card__title">Notion: Organiza tu trabajo y tu vida</h2>
-              <p class="course-card__author">Laura Vega</p>
-              <div class="course-card__meta">
-                <span class="course-card__rating"><span class="star">★</span> 4.6</span>
-                <span>5 horas</span>
-              </div>
-              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-card__image" style="background: linear-gradient(135deg,#22d3ee,#7c3aed); color:#fff;">🖌️</div>
-            <div class="course-card__body">
-              <span class="badge">Diseño</span>
-              <h2 class="course-card__title">Canva para principiantes</h2>
-              <p class="course-card__author">Carmen Quinteros</p>
-              <div class="course-card__meta">
-                <span class="course-card__rating"><span class="star">★</span> 4.7</span>
-                <span>10 horas</span>
-              </div>
-              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-card__image" style="background-color:#e2e8f0;">💡</div>
-            <div class="course-card__body">
-              <span class="badge">Negocios</span>
-              <h2 class="course-card__title">Finanzas para emprendedores</h2>
-              <p class="course-card__author">Luis Martínez</p>
-              <div class="course-card__meta">
-                <span class="course-card__rating"><span class="star">★</span> 4.5</span>
-                <span>12 horas</span>
-              </div>
-              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-card__image" style="background-color:#0f172a; color:#fff;">🐍</div>
-            <div class="course-card__body">
-              <span class="badge">Tecnología</span>
-              <h2 class="course-card__title">Python para principiantes</h2>
-              <p class="course-card__author">Diego Sánchez</p>
-              <div class="course-card__meta">
-                <span class="course-card__rating"><span class="star">★</span> 4.8</span>
-                <span>16 horas</span>
-              </div>
-              <a class="btn btn-outline course-card__cta" href="#">Ver más</a>
-            </div>
-          </article>
-        </div>
-
-        <div class="pagination">
-          <span>Mostrando 1-6 de 24 cursos</span>
-          <div class="pagination__pages">
-            <a href="#" class="is-active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-          </div>
-        </div>
+        <div class="course-grid" id="catalog-grid"></div>
       </section>
     </div>
   </main>
@@ -185,5 +91,7 @@
   </footer>
 
   <script src="../src/js/main.js"></script>
+  <script src="../src/js/api.js"></script>
+  <script src="../src/js/catalog.js"></script>
 </body>
 </html>
