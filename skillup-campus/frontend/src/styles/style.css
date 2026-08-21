@@ -521,6 +521,12 @@ button {
   font-weight: 700;
 }
 
+.course-card__description {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
 .course-card__author {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);

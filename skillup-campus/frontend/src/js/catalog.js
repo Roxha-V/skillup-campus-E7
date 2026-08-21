@@ -20,6 +20,7 @@ function renderCourseCard(course) {
     <div class="course-card__body">
       <span class="badge">${category}</span>
       <h2 class="course-card__title">${course.name || 'Curso'}</h2>
+      <p class="course-card__description">${course.description || ''}</p>
       <p class="course-card__author">${course.professor || ''}</p>
       <div class="course-card__meta">
         <span class="course-card__rating"><span class="star">★</span> ${course.votes ?? '—'}</span>
