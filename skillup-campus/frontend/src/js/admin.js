@@ -1,4 +1,5 @@
 let editingCourseId = null;
+let editingCourseOriginal = null;
 
 function showAdminMessage(elementId, message, isError = true) {
   const el = document.getElementById(elementId);
@@ -23,6 +24,7 @@ function fillCourseForm(course) {
   form.description.value = course.description || '';
 
   editingCourseId = course.id;
+  editingCourseOriginal = { ...course };
   document.getElementById('course-form-title').textContent = 'Editar curso';
   document.getElementById('course-form-submit').textContent = 'Guardar cambios';
   document.getElementById('course-form-cancel').hidden = false;
@@ -32,6 +34,7 @@ function resetCourseForm() {
   const form = document.getElementById('course-form');
   form.reset();
   editingCourseId = null;
+  editingCourseOriginal = null;
   document.getElementById('course-form-title').textContent = 'Crear curso';
   document.getElementById('course-form-submit').textContent = 'Crear curso';
   document.getElementById('course-form-cancel').hidden = true;
@@ -133,7 +136,15 @@ function initCourseForm() {
 
     try {
       if (editingCourseId) {
-        await updateCourse(editingCourseId, course);
+        // El back solo permite actualizar un campo a la vez (PUT /admin/courses/:id/:field/:value),
+        // así que mandamos un request por cada campo que haya cambiado.
+        const changedFields = Object.keys(course).filter(
+          (field) => course[field] !== (editingCourseOriginal?.[field] || '')
+        );
+
+        for (const field of changedFields) {
+          await updateCourseField(editingCourseId, field, course[field]);
+        }
         showAdminMessage('course-form-message', 'Curso actualizado con éxito.', false);
       } else {
         await createCourse(course);

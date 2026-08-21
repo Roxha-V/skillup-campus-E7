@@ -60,21 +60,21 @@ function getMyEnrollments() {
 }
 
 function createCourse(course) {
-  return apiRequest('/courses', {
+  return apiRequest('/admin/courses/create', {
     method: 'POST',
     body: JSON.stringify(course),
   });
 }
 
-function updateCourse(id, course) {
-  return apiRequest(`/courses/${id}`, {
+// El back actualiza un campo por vez: PUT /admin/courses/:id/:field/:value
+function updateCourseField(id, field, value) {
+  return apiRequest(`/admin/courses/${id}/${field}/${encodeURIComponent(value)}`, {
     method: 'PUT',
-    body: JSON.stringify(course),
   });
 }
 
 function deleteCourse(id) {
-  return apiRequest(`/courses/${id}`, {
+  return apiRequest(`/admin/courses/${id}`, {
     method: 'DELETE',
   });
 }
