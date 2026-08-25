@@ -1,7 +1,7 @@
 const enrollment = require('../models/enrollment');
 const Course = require('../models/courses');
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
     try {
         const { userId, courseId } = req.body;
         
@@ -13,11 +13,11 @@ exports.register = async (req, res) => {
         const newEnrollment = await enrollment.create({ userId, courseId });
         res.status(201).json(newEnrollment);
     } catch (error) {
-        res.status(500).json({ error: 'Error al registrar el usuario en el curso' });
+        next(error);
     }
 };
 
-exports.getMyEnrollments = async (req, res) => {
+exports.getMyEnrollments = async (req, res, next) => {
     try {
         const userId = req.user.id;
 
@@ -40,6 +40,6 @@ exports.getMyEnrollments = async (req, res) => {
 
         res.status(200).json(courses);
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener los cursos del usuario autenticado' });
+        next(error);
     }
 };

@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('../models/user');
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
   try {
     const { email, password, name } = req.body;
 
@@ -15,11 +15,11 @@ exports.register = async (req, res) => {
     const user = await User.create({ email, password: hash, name, role: 'student' });
     res.status(201).json({ message: 'Usuario creado', id: user.id });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    next(err);
   }
  };
 
- exports.login = async (req, res) => {
+ exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
@@ -36,18 +36,18 @@ exports.register = async (req, res) => {
 
   } 
   catch (err) {
-    res.status(400).json({ error: err.message });
+    next(err);
   }
  };
 
 
-exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: { exclude: ['password'] }
     });
     res.status(200).json(users);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    next(err);
   }
 };

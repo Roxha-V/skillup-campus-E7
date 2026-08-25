@@ -28,6 +28,21 @@ async function startServer() {
     await sequelize.authenticate();
     console.log('Conexión a la base de datos establecida');
 
+    app.use((err, req, res, next) => {
+
+    console.error(err.stack);
+
+    // Define el estado HTTP 
+    const statusCode = err.statusCode || 500;
+    
+    // Responde al cliente con un formato JSON limpio
+    res.status(statusCode).json({
+      status: 'error',
+      statusCode: statusCode,
+      message: err.message || 'Ocurrió un error interno en el servidor'
+    });
+  });
+
     app.listen(PORT, () => {
       console.log(`Servidor Express escuchando en el puerto ${PORT}`);
     });

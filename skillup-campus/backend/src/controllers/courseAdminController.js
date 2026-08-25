@@ -1,6 +1,6 @@
 const Course = require('../models/courses');
 
-exports.createCourse = async (req, res) => {
+exports.createCourse = async (req, res, next) => {
     try {
         const { category, name, professor ,description, image_path } = req.body;
         if (!category || !name || !professor || !description) {
@@ -15,11 +15,11 @@ exports.createCourse = async (req, res) => {
         res.status(201).json(course);
     }
     catch (err) {
-        res.status(500).json({ error: err.message });
+        next(err);
     }
 }
 
-exports.updateCourse = async (req, res) => {
+exports.updateCourse = async (req, res, next) => {
     try {
         const { id, field, value } = req.params;
         const courseToUpdate = await Course.findByPk(id);
@@ -32,11 +32,11 @@ exports.updateCourse = async (req, res) => {
         res.status(200).json(updatedCourse);
     }
     catch (err) {
-        res.status(500).json({ error: err.message });
+        next(err);
     }
 }
 
-exports.deleteCourse = async (req, res) => {
+exports.deleteCourse = async (req, res, next) => {
     try {
         const { id } = req.params;
         const courseToDelete = await Course.findByPk(id);
@@ -47,6 +47,6 @@ exports.deleteCourse = async (req, res) => {
         res.status(200).json({ message: 'Curso eliminado' });
     }
     catch (err) {
-        res.status(500).json({ error: err.message });
+        next(err);
     }
 }
