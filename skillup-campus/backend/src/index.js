@@ -9,8 +9,10 @@ app.use(express.json());
 // Importar rutas
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/coursePublicRoutes');
+const enrollmentRoutes = require('./routes/enrollmentRoutes');
 app.use('/api/courses', courseRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/enrollments', enrollmentRoutes);
 
 const courseRoutesAdmin = require('./routes/courseAdminRoutes');
 app.use('/api/admin/courses', courseRoutesAdmin);
@@ -19,7 +21,7 @@ app.use('/api/admin/courses', courseRoutesAdmin);
 app.get('/', (req, res) => {
   res.send('Servidor Express funcionando');
 });
-
+  
 
 async function startServer() {
   try {

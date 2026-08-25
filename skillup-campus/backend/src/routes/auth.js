@@ -10,4 +10,7 @@ router.post('/login', authController.login);
 // Ruta protegida para obtener el perfil del usuario
 router.get('/profile', authMiddleware);
 
+// Ruta para listar usuarios
+router.get('/admin/users', authMiddleware, authController.getAllUsers); 
+
 module.exports = router;
