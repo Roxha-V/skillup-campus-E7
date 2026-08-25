@@ -1,10 +1,31 @@
 const express = require('express');
+const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authmiddle');
 
 // Rutas de autenticación
-router.post('/register', authController.register);
+router.post('/register', [
+  // 1. Validaciones requeridas
+  body('email')
+    .isEmail().withMessage('El formato del correo electrónico no es válido')
+    .normalizeEmail(),
+  
+  body('password')
+    .isLength({ min: 8 }).withMessage('La contraseña debe tener al menos 8 caracteres'),
+  
+  body('name')
+    .notEmpty().withMessage('El nombre es requerido')
+    .trim(),
+    
+  (req, res, next) => {
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+      return res.status(400).json({ errores: errores.array() });
+    }
+    next(); 
+  }
+], authController.register);
 router.post('/login', authController.login);
 
 // Ruta protegida para obtener el perfil del usuario
