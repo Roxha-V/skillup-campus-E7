@@ -1,0 +1,368 @@
+{
+  "info": {
+    "_postman_id": "851fa7a1-04f3-4203-9e97-aae567690e17",
+    "name": "SkillUp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56916972",
+    "_collection_link": "https://go.postman.co/collection/56916972-851fa7a1-04f3-4203-9e97-aae567690e17?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Creacion de usuario student",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fabricio@mail.com\",\r\n    \"password\": \"1234\",\r\n    \"name\": \"fabri\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Logueo admin",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"admin@mail.com\",\r\n    \"password\": \"admin1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Creacion de cursos",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_00mr}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "  {\r\n    \"category\": \"desarrollo personal\",\r\n    \"name\": \"habitos productivos y crecimiento personal\",\r\n    \"professor\": \"maria fernandez\",\r\n    \"description\": \"desarrolla disciplina, gestion del tiempo y habilidades para mejorar tu bienestar y rendimiento personal\"\r\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/admin/courses/create",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "admin",
+            "courses",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logueo usuario student",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fabricio@mail.com\",\r\n    \"password\": \"1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Conseguir cursos de usuario",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0i9p}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"category\": \"diseño\",\r\n    \"name\": \"diseño con figma desde cero\",\r\n    \"professor\" : \"manuel perez\",\r\n    \"description\": \"aprende a diseñar paginas web y maquetar con figma desde el nivel mas basico\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/enrollments/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "enrollments",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar usuarios admin",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0ed4}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fabricio@mail.com\",\r\n    \"password\": \"1234\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/auth/admin/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "auth",
+            "admin",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Conseguir todos los cursos",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fabricio@mail.com\",\r\n    \"password\": \"1234\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/courses",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "courses"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Conseguir curso por ID",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/courses/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "courses",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cambio de atributo en curso Admin",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_097b}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fabricio@mail.com\",\r\n    \"password\": \"1234\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/admin/courses/1/name/cambio",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "admin",
+            "courses",
+            "1",
+            "name",
+            "cambio"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar curso Admin",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_097b}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fabricio@mail.com\",\r\n    \"password\": \"1234\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/admin/courses/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "admin",
+            "courses",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_00mr",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0i9p",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0ed4",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_097b",
+      "secret": true
+    }
+  ]
+}
