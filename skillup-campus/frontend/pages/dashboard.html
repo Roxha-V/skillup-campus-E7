@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · SkillUp Campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/styles/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="sidebar__logo" href="../index.html">
+        <img class="sidebar__logo-img" src="../src/assets/icons/logo-skillup.png" alt="SkillUp Campus">
+      </a>
+      <nav class="sidebar__nav">
+        <a class="sidebar__link is-active" href="dashboard.html"><span class="sidebar__icon">🏠</span> Inicio</a>
+        <a class="sidebar__link" href="dashboard.html"><span class="sidebar__icon">🎓</span> Mis cursos</a>
+        <a class="sidebar__link" href="catalog.html"><span class="sidebar__icon">🔍</span> Catálogo</a>
+        <a class="sidebar__link" href="admin.html" id="admin-link" hidden><span class="sidebar__icon">⚙️</span> Panel admin</a>
+      </nav>
+      <button type="button" class="sidebar__link" id="logout-btn"><span class="sidebar__icon">↩️</span> Cerrar sesión</button>
+    </aside>
+
+    <main class="app-main">
+      <div class="app-topbar">
+        <div>
+          <h1 class="app-topbar__title">¡Hola de nuevo! 👋</h1>
+          <p class="app-topbar__subtitle">Seguí aprendiendo y alcanzá tus metas.</p>
+        </div>
+      </div>
+
+      <div class="section__header">
+        <h2 class="section__title">Mis cursos</h2>
+        <a href="catalog.html">Ver todos →</a>
+      </div>
+
+      <div class="course-grid" id="my-courses">
+        <p>Cargando tus cursos...</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="../src/js/main.js"></script>
+  <script src="../src/js/api.js"></script>
+  <script src="../src/js/guard.js"></script>
+  <script src="../src/js/catalog.js"></script>
+  <script>
+    requireAuth();
+
+    const currentUser = getUserFromToken();
+    if (currentUser && currentUser.role === 'admin') {
+      document.getElementById('admin-link').hidden = false;
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    });
+
+    async function loadMyCourses() {
+      const grid = document.getElementById('my-courses');
+      try {
+        const enrollments = await getMyEnrollments();
+
+        if (!enrollments || enrollments.length === 0) {
+          grid.innerHTML = '<p>Todavía no te inscribiste a ningún curso. <a href="catalog.html">Explorá el catálogo</a>.</p>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        enrollments.forEach((enrollment) => {
+          const course = enrollment.course || enrollment;
+          grid.appendChild(renderCourseCard(course));
+        });
+      } catch (err) {
+        grid.innerHTML = `<p class="form-error">${err.message}</p>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMyCourses);
+  </script>
+</body>
+</html>
