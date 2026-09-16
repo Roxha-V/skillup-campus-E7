@@ -17,8 +17,12 @@
       </a>
       <nav class="sidebar__nav">
         <a class="sidebar__link" href="dashboard.html"><span class="sidebar__icon">🏠</span> Dashboard</a>
-        <a class="sidebar__link is-active" href="admin.html"><span class="sidebar__icon">🎓</span> Cursos</a>
-        <a class="sidebar__link" href="admin.html#users-section"><span class="sidebar__icon">👥</span> Usuarios</a>
+        <a class="sidebar__link is-active" href="#courses-section"><span class="sidebar__icon">🎓</span> Cursos</a>
+        <a class="sidebar__link" href="#users-section"><span class="sidebar__icon">👥</span> Usuarios</a>
+        <a class="sidebar__link" href="#instructors-section"><span class="sidebar__icon">🧑‍🏫</span> Instructores</a>
+        <a class="sidebar__link" href="#categories-section"><span class="sidebar__icon">🗂️</span> Categorías</a>
+        <a class="sidebar__link" href="#comments-section"><span class="sidebar__icon">💬</span> Comentarios</a>
+        <a class="sidebar__link" href="#settings-section"><span class="sidebar__icon">⚙️</span> Configuración</a>
       </nav>
       <button type="button" class="sidebar__link" id="logout-btn"><span class="sidebar__icon">↩️</span> Cerrar sesión</button>
     </aside>
@@ -26,10 +30,22 @@
     <main class="app-main">
       <div class="app-topbar">
         <div>
-          <h1 class="app-topbar__title">Cursos</h1>
+          <h1 class="app-topbar__title" id="courses-section">Cursos</h1>
           <p class="app-topbar__subtitle">Gestioná los cursos y los usuarios de la plataforma.</p>
         </div>
-        <button type="button" class="btn btn-primary" id="new-course-btn">+ Nuevo curso</button>
+        <div class="admin-topbar-tools">
+          <label class="admin-search">
+            🔍
+            <input type="search" id="course-search" placeholder="Buscar curso...">
+          </label>
+          <div style="position: relative;">
+            <button type="button" class="admin-icon-btn" id="notif-btn" aria-label="Notificaciones">🔔</button>
+            <div class="admin-notif-panel" id="notif-panel" hidden>No hay notificaciones nuevas.</div>
+          </div>
+          <a class="admin-icon-btn" href="#settings-section" aria-label="Configuración">⚙️</a>
+          <span class="admin-avatar" title="Administrador">A</span>
+          <button type="button" class="btn btn-primary" id="new-course-btn">+ Nuevo curso</button>
+        </div>
       </div>
 
       <section class="admin-section">
@@ -38,26 +54,40 @@
             <thead>
               <tr>
                 <th>Curso</th>
+                <th>Instructor</th>
                 <th>Categoría</th>
-                <th>Profesor/a</th>
+                <th>Precio</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="courses-table-body">
-              <tr><td colspan="4">Cargando cursos...</td></tr>
+              <tr><td colspan="6">Cargando cursos...</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="pagination" id="courses-pagination" hidden>
+          <span id="courses-pagination-summary"></span>
+          <div class="pagination__pages" id="courses-pagination-pages"></div>
         </div>
       </section>
 
       <div class="app-stats">
         <div class="app-stat-card">
           <div class="app-stat-card__value" id="stat-total-courses">—</div>
-          <div class="app-stat-card__label">Total cursos</div>
+          <div class="app-stat-card__label">Todos los cursos</div>
         </div>
         <div class="app-stat-card">
           <div class="app-stat-card__value" id="stat-total-users">—</div>
           <div class="app-stat-card__label">Usuarios registrados</div>
+        </div>
+        <div class="app-stat-card">
+          <div class="app-stat-card__value" id="stat-total-instructors">—</div>
+          <div class="app-stat-card__label">Instructores</div>
+        </div>
+        <div class="app-stat-card">
+          <div class="app-stat-card__value" title="Falta el campo &quot;price&quot; en el back para calcular esto de verdad">$0</div>
+          <div class="app-stat-card__label">Venta total</div>
         </div>
       </div>
 
@@ -122,6 +152,58 @@
           </table>
         </div>
       </section>
+
+      <section class="admin-section" id="instructors-section">
+        <h2 class="admin-section__title">Instructores</h2>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Instructor/a</th>
+                <th>Cursos a cargo</th>
+              </tr>
+            </thead>
+            <tbody id="instructors-table-body">
+              <tr><td colspan="2">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-section" id="categories-section">
+        <h2 class="admin-section__title">Categorías</h2>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Categoría</th>
+                <th>Cursos</th>
+              </tr>
+            </thead>
+            <tbody id="categories-table-body">
+              <tr><td colspan="2">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-section" id="comments-section">
+        <h2 class="admin-section__title">Comentarios</h2>
+        <div class="placeholder-section">
+          <div class="placeholder-section__icon">💬</div>
+          <div class="placeholder-section__title">Todavía no hay sistema de comentarios</div>
+          <p>Falta que el back agregue un modelo de comentarios/reseñas para poder moderarlos acá.</p>
+        </div>
+      </section>
+
+      <section class="admin-section" id="settings-section">
+        <h2 class="admin-section__title">Configuración</h2>
+        <div class="placeholder-section">
+          <div class="placeholder-section__icon">⚙️</div>
+          <div class="placeholder-section__title">Próximamente</div>
+          <p>Acá van a ir las preferencias generales de la plataforma.</p>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -133,6 +215,14 @@
     document.getElementById('logout-btn').addEventListener('click', () => {
       localStorage.removeItem('token');
       window.location.href = 'login.html';
+    });
+
+    document.getElementById('notif-btn').addEventListener('click', (event) => {
+      event.stopPropagation();
+      document.getElementById('notif-panel').hidden = !document.getElementById('notif-panel').hidden;
+    });
+    document.addEventListener('click', () => {
+      document.getElementById('notif-panel').hidden = true;
     });
   </script>
 </body>
