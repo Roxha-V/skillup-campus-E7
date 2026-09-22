@@ -58,3 +58,8 @@ function toggleFavorite(courseId) {
   localStorage.setItem('favorites', JSON.stringify(favorites));
   return favorites.includes(id);
 }
+
+function getInitials(name) {
+  if (!name) return '?';
+  return name.trim().split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+}

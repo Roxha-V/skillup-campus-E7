@@ -32,6 +32,18 @@
           <h1 class="app-topbar__title" id="greeting">¡Hola de nuevo! 👋</h1>
           <p class="app-topbar__subtitle">Seguí aprendiendo y alcanzá tus metas.</p>
         </div>
+        <div class="admin-topbar-tools">
+          <label class="admin-search">
+            🔍
+            <input type="search" placeholder="Buscar...">
+          </label>
+          <div style="position: relative;">
+            <button type="button" class="admin-icon-btn" id="notif-btn" aria-label="Notificaciones">🔔</button>
+            <div class="admin-notif-panel" id="notif-panel" hidden>No hay notificaciones nuevas.</div>
+          </div>
+          <a class="admin-icon-btn" href="#settings-section" aria-label="Configuración">⚙️</a>
+          <span class="admin-avatar" id="user-avatar" title="Mi cuenta">👤</span>
+        </div>
       </div>
 
       <div class="section__header">
@@ -39,7 +51,7 @@
         <a href="catalog.html">Ver todos →</a>
       </div>
 
-      <div class="course-list" id="my-courses">
+      <div class="course-grid" id="my-courses">
         <p>Cargando tus cursos...</p>
       </div>
 
@@ -104,6 +116,14 @@
       window.location.href = 'login.html';
     });
 
+    document.getElementById('notif-btn').addEventListener('click', (event) => {
+      event.stopPropagation();
+      document.getElementById('notif-panel').hidden = !document.getElementById('notif-panel').hidden;
+    });
+    document.addEventListener('click', () => {
+      document.getElementById('notif-panel').hidden = true;
+    });
+
     // Progreso por curso: el back todavía no trackea avance de inscripciones.
     // Generamos un valor estable por curso (no aleatorio en cada carga) para
     // poder maquetar la barra de progreso hasta que exista el dato real.
@@ -112,27 +132,33 @@
       return (id * 37) % 100;
     }
 
-    // "Mis cursos" se muestra como lista horizontal (ver mockup Group 9.png),
-    // no como grid de cards.
-    function renderMyCourseListItem(course) {
+    function renderMyCourseCard(course) {
+      const card = renderCourseCard(course);
       const progress = getMockProgress(course.id);
-      const icon = CATEGORY_ICONS[course.category] || '📚';
-      const iconStyle = course.image_path
-        ? `background-image:url('${course.image_path}');`
-        : '';
+      const cta = card.querySelector('.course-card__cta');
+      card.title = 'Progreso de ejemplo: el back todavía no trackea avance';
 
-      const item = document.createElement('div');
-      item.className = 'course-list-item';
-      item.title = 'Progreso de ejemplo: el back todavía no trackea avance';
-      item.innerHTML = `
-        <div class="course-list-item__icon" style="${iconStyle}">${course.image_path ? '' : icon}</div>
-        <div class="course-list-item__body">
-          <p class="course-list-item__title">${course.name || 'Curso'}</p>
-          <p class="course-list-item__progress"><strong>${progress}%</strong> completado</p>
-        </div>
-        <a href="course-detail.html?id=${course.id}" class="course-list-item__cta">Continuar</a>
-      `;
-      return item;
+      // El mockup de "Mis cursos" no repite badge/descripción/autor/rating,
+      // solo título, progreso y el link "Continuar curso".
+      card.querySelector('.badge')?.remove();
+      card.querySelector('.course-card__description')?.remove();
+      card.querySelector('.course-card__author')?.remove();
+      card.querySelector('.course-card__meta')?.remove();
+
+      const progressLabel = document.createElement('p');
+      progressLabel.className = 'course-card__progress-label';
+      progressLabel.innerHTML = `<strong>${progress}%</strong> completado`;
+      cta.insertAdjacentElement('beforebegin', progressLabel);
+
+      const progressWrap = document.createElement('div');
+      progressWrap.className = 'course-card__progress';
+      progressWrap.innerHTML = `<div class="course-card__progress-bar" style="width:${progress}%"></div>`;
+      cta.insertAdjacentElement('beforebegin', progressWrap);
+
+      cta.textContent = 'Continuar curso';
+      cta.classList.remove('btn', 'btn-outline');
+      cta.classList.add('course-card__cta-link');
+      return card;
     }
 
     async function loadMyCourses() {
@@ -147,7 +173,7 @@
 
         const courses = enrollments.map((enrollment) => enrollment.course || enrollment);
         grid.innerHTML = '';
-        courses.forEach((course) => grid.appendChild(renderMyCourseListItem(course)));
+        courses.forEach((course) => grid.appendChild(renderMyCourseCard(course)));
         return courses;
       } catch (err) {
         grid.innerHTML = `<p class="form-error">${err.message}</p>`;
@@ -183,6 +209,7 @@
         const profile = await apiRequest('/auth/profile');
         if (profile && profile.name) {
           document.getElementById('greeting').textContent = `¡Hola ${profile.name}! 👋`;
+          document.getElementById('user-avatar').textContent = getInitials(profile.name);
         }
       } catch (err) {
         // Sin datos de perfil todavía: se mantiene el saludo genérico.

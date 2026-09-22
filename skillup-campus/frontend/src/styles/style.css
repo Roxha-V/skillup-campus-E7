@@ -559,6 +559,29 @@ button {
   margin-top: var(--space-sm);
 }
 
+.course-card__progress-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+}
+
+.course-card__progress-label strong {
+  color: var(--color-primary);
+}
+
+.course-card__cta-link {
+  display: block;
+  text-align: center;
+  margin-top: var(--space-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.course-card__cta-link:hover {
+  text-decoration: underline;
+}
+
 .pagination {
   display: flex;
   align-items: center;

@@ -2,12 +2,7 @@ function getCourseIdFromUrl() {
   return new URLSearchParams(window.location.search).get('id');
 }
 
-// getFavorites/toggleFavorite viven en guard.js (se comparten con dashboard.html)
-
-function getInitials(name) {
-  if (!name) return '?';
-  return name.trim().split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
-}
+// getFavorites/toggleFavorite/getInitials viven en guard.js (se comparten con dashboard.html)
 
 function renderCourseDetail(course) {
   const container = document.getElementById('course-detail');
