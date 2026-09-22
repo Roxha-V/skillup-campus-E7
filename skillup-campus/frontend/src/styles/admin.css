@@ -125,3 +125,206 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Topbar de acciones (buscador, notificaciones, avatar) */
+.admin-topbar-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.admin-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-md);
+  padding: 0.5rem var(--space-md);
+  min-width: 220px;
+}
+
+.admin-search input {
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  width: 100%;
+}
+
+.admin-icon-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.admin-icon-btn:hover {
+  background: var(--color-bg-muted);
+}
+
+.admin-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.admin-notif-panel {
+  position: absolute;
+  top: calc(100% + var(--space-xs));
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Curso: miniatura + nombre en la tabla */
+.admin-course-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.admin-course-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: #0f172a;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Toggle de estado (visual, no persiste: al back le falta el campo) */
+.admin-toggle {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.admin-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.admin-toggle__track {
+  position: absolute;
+  inset: 0;
+  background: var(--color-border);
+  border-radius: 999px;
+  transition: background 0.15s;
+}
+
+.admin-toggle__track::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s;
+}
+
+.admin-toggle input:checked + .admin-toggle__track {
+  background: var(--color-secondary);
+}
+
+.admin-toggle input:checked + .admin-toggle__track::before {
+  transform: translateX(16px);
+}
+
+.admin-price {
+  color: var(--color-text-muted);
+}
+
+/* Secciones sin datos reales todavía */
+.placeholder-section {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.placeholder-section__icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+}
+
+.placeholder-section__icon img {
+  width: 32px;
+  height: 32px;
+}
+
+.placeholder-section__title {
+  color: var(--color-text);
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+/* Paginación funcional */
+.pagination__pages button {
+  border: 1px solid var(--color-border);
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.7rem;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.pagination__pages button.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.pagination__pages button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  /* El buscador con min-width:220px + los 3 íconos + avatar se salían
+     de la pantalla y el avatar quedaba inalcanzable (ni siquiera
+     scrolleable). Se pasa a 2 filas: buscador arriba, íconos abajo. */
+  .admin-topbar-tools {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .admin-search {
+    min-width: 0;
+    flex: 1 1 100%;
+    order: -1;
+  }
+}

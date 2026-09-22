@@ -1,5 +1,8 @@
 let editingCourseId = null;
 let editingCourseOriginal = null;
+let coursesPage = 1;
+const COURSES_PAGE_SIZE = 5;
+let coursesSearchTerm = '';
 
 function showAdminMessage(elementId, message, isError = true) {
   const el = document.getElementById(elementId);
@@ -54,16 +57,47 @@ function renderCoursesTable(courses) {
   tbody.innerHTML = '';
 
   if (!courses || courses.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4">No hay cursos cargados todavía.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6">No hay cursos cargados todavía.</td></tr>';
+    renderCoursesPagination(0);
     return;
   }
 
-  courses.forEach((course) => {
+  const filtered = coursesSearchTerm
+    ? courses.filter((c) => (c.name || '').toLowerCase().includes(coursesSearchTerm))
+    : courses;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6">Ningún curso coincide con la búsqueda.</td></tr>';
+    renderCoursesPagination(0);
+    return;
+  }
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / COURSES_PAGE_SIZE));
+  coursesPage = Math.min(coursesPage, totalPages);
+  const start = (coursesPage - 1) * COURSES_PAGE_SIZE;
+  const pageItems = filtered.slice(start, start + COURSES_PAGE_SIZE);
+
+  pageItems.forEach((course) => {
+    const thumbStyle = course.image_path
+      ? `background-image:url('${course.image_path}');`
+      : '';
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${course.name || ''}</td>
-      <td>${course.category || ''}</td>
+      <td>
+        <div class="admin-course-cell">
+          <span class="admin-course-thumb" style="${thumbStyle}">${course.image_path ? '' : '📚'}</span>
+          <span>${course.name || ''}</span>
+        </div>
+      </td>
       <td>${course.professor || ''}</td>
+      <td>${course.category || ''}</td>
+      <td class="admin-price" title="Falta el campo &quot;price&quot; en el back">—</td>
+      <td>
+        <label class="admin-toggle" title="Visual únicamente: al back le falta el campo de estado">
+          <input type="checkbox" checked>
+          <span class="admin-toggle__track"></span>
+        </label>
+      </td>
       <td class="admin-table__actions">
         <button type="button" class="icon-btn" data-action="edit" data-id="${course.id}" aria-label="Editar curso" title="Editar">✏️</button>
         <button type="button" class="icon-btn icon-btn--danger" data-action="delete" data-id="${course.id}" aria-label="Eliminar curso" title="Eliminar">🗑️</button>
@@ -71,19 +105,101 @@ function renderCoursesTable(courses) {
     `;
     tbody.appendChild(row);
   });
+
+  renderCoursesPagination(filtered.length);
+}
+
+function renderCoursesPagination(totalItems) {
+  const wrapper = document.getElementById('courses-pagination');
+  const pagesEl = document.getElementById('courses-pagination-pages');
+  const summaryEl = document.getElementById('courses-pagination-summary');
+
+  if (totalItems <= COURSES_PAGE_SIZE) {
+    wrapper.hidden = true;
+    return;
+  }
+
+  const totalPages = Math.ceil(totalItems / COURSES_PAGE_SIZE);
+  const start = (coursesPage - 1) * COURSES_PAGE_SIZE + 1;
+  const end = Math.min(coursesPage * COURSES_PAGE_SIZE, totalItems);
+
+  wrapper.hidden = false;
+  summaryEl.textContent = `Mostrando ${start}-${end} de ${totalItems} cursos`;
+  pagesEl.innerHTML = '';
+
+  for (let page = 1; page <= totalPages; page += 1) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = page;
+    if (page === coursesPage) btn.classList.add('is-active');
+    btn.addEventListener('click', () => {
+      coursesPage = page;
+      renderCoursesTable(window.__adminCourses || []);
+    });
+    pagesEl.appendChild(btn);
+  }
+}
+
+function renderInstructorsTable(courses) {
+  const tbody = document.getElementById('instructors-table-body');
+  const byInstructor = new Map();
+
+  (courses || []).forEach((course) => {
+    const name = course.professor || 'Sin asignar';
+    byInstructor.set(name, (byInstructor.get(name) || 0) + 1);
+  });
+
+  document.getElementById('stat-total-instructors').textContent = byInstructor.size;
+
+  if (byInstructor.size === 0) {
+    tbody.innerHTML = '<tr><td colspan="2">No hay instructores todavía.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '';
+  byInstructor.forEach((count, name) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${name}</td><td>${count}</td>`;
+    tbody.appendChild(row);
+  });
+}
+
+function renderCategoriesTable(courses) {
+  const tbody = document.getElementById('categories-table-body');
+  const byCategory = new Map();
+
+  (courses || []).forEach((course) => {
+    const category = course.category || 'Sin categoría';
+    byCategory.set(category, (byCategory.get(category) || 0) + 1);
+  });
+
+  if (byCategory.size === 0) {
+    tbody.innerHTML = '<tr><td colspan="2">No hay categorías todavía.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '';
+  byCategory.forEach((count, category) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${category}</td><td>${count}</td>`;
+    tbody.appendChild(row);
+  });
 }
 
 async function loadCoursesTable() {
   const tbody = document.getElementById('courses-table-body');
-  tbody.innerHTML = '<tr><td colspan="4">Cargando cursos...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="6">Cargando cursos...</td></tr>';
 
   try {
     const courses = await getCourses();
     window.__adminCourses = courses || [];
+    coursesPage = 1;
     renderCoursesTable(window.__adminCourses);
+    renderInstructorsTable(window.__adminCourses);
+    renderCategoriesTable(window.__adminCourses);
     document.getElementById('stat-total-courses').textContent = window.__adminCourses.length;
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="4" class="form-error">${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="form-error">${err.message}</td></tr>`;
   }
 }
 
@@ -206,10 +322,22 @@ function initCourseForm() {
   });
 }
 
+function initCourseSearch() {
+  const input = document.getElementById('course-search');
+  if (!input) return;
+
+  input.addEventListener('input', () => {
+    coursesSearchTerm = input.value.trim().toLowerCase();
+    coursesPage = 1;
+    renderCoursesTable(window.__adminCourses || []);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!requireAdmin()) return;
 
   initCourseForm();
+  initCourseSearch();
   loadCoursesTable();
   loadUsersTable();
 });
