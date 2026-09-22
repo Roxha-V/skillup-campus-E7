@@ -784,11 +784,17 @@ button {
 
 .category-pill {
   display: inline-flex;
+  height: 52px;
+  overflow: hidden;
 }
 
+/* Los PNG de categoría traen el estado normal y el hover apilados en
+   una sola imagen (export de Figma sin recortar); mostramos solo la
+   mitad de arriba (el estado normal) y recortamos el resto. */
 .category-pill img {
-  height: 52px;
+  height: 104px;
   width: auto;
+  flex-shrink: 0;
 }
 
 /* CTA banner */
