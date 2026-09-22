@@ -53,10 +53,8 @@
 
       <section class="admin-section" id="favorites-section">
         <h2 class="admin-section__title">Favoritos</h2>
-        <div class="placeholder-section">
-          <div class="placeholder-section__icon">⭐</div>
-          <div class="placeholder-section__title">Todavía no existe</div>
-          <p>Falta que el back agregue la funcionalidad de marcar cursos como favoritos.</p>
+        <div class="course-grid" id="favorite-courses">
+          <p>Cargando favoritos...</p>
         </div>
       </section>
 
@@ -183,10 +181,39 @@
       }
     }
 
+    // Favoritos se guardan en localStorage (ver guard.js): no dependen
+    // del back, pero para mostrarlos con nombre/imagen hace falta cruzarlos
+    // contra el catálogo completo.
+    async function loadFavorites() {
+      const grid = document.getElementById('favorite-courses');
+      const favoriteIds = getFavorites();
+
+      if (favoriteIds.length === 0) {
+        grid.innerHTML = '<p>Todavía no marcaste ningún curso como favorito. <a href="catalog.html">Explorá el catálogo</a>.</p>';
+        return;
+      }
+
+      try {
+        const allCourses = await getCourses();
+        const favoriteCourses = (allCourses || []).filter((c) => favoriteIds.includes(String(c.id)));
+
+        if (favoriteCourses.length === 0) {
+          grid.innerHTML = '<p>Todavía no marcaste ningún curso como favorito. <a href="catalog.html">Explorá el catálogo</a>.</p>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        favoriteCourses.forEach((course) => grid.appendChild(renderCourseCard(course)));
+      } catch (err) {
+        grid.innerHTML = `<p class="form-error">${err.message}</p>`;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       loadGreeting();
       const myCourses = await loadMyCourses();
       loadRecommended(myCourses);
+      loadFavorites();
     });
   </script>
 </body>

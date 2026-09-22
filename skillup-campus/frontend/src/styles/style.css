@@ -938,6 +938,104 @@ button {
   margin-top: var(--space-sm);
 }
 
+.course-detail-card__benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.course-detail-card__benefits li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.favorite-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.favorite-btn.is-active {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.instructor-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.instructor-profile__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Modal de confirmación de inscripción */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  z-index: 100;
+}
+
+.modal {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.modal__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
+}
+
+.modal__title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.modal__text {
+  color: var(--color-text-muted);
+}
+
+.modal .btn {
+  margin-top: var(--space-sm);
+}
+
 @media (max-width: 900px) {
   .course-detail-layout {
     grid-template-columns: 1fr;

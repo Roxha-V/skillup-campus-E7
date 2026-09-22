@@ -32,3 +32,29 @@ function requireAdmin(redirectTo = 'login.html') {
   }
   return true;
 }
+
+// Favoritos: no hay endpoint en el back todavía, así que se guardan
+// en localStorage. Funciona de verdad, solo que no sincroniza entre
+// dispositivos hasta que el back agregue el endpoint.
+function getFavorites() {
+  try {
+    return JSON.parse(localStorage.getItem('favorites') || '[]');
+  } catch (err) {
+    return [];
+  }
+}
+
+function toggleFavorite(courseId) {
+  const favorites = getFavorites();
+  const id = String(courseId);
+  const index = favorites.indexOf(id);
+
+  if (index === -1) {
+    favorites.push(id);
+  } else {
+    favorites.splice(index, 1);
+  }
+
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  return favorites.includes(id);
+}
