@@ -240,12 +240,17 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  height: 32px;
+  overflow: hidden;
 }
 
+/* Los PNG de redes sociales traen el estado normal y el hover apilados
+   en una sola imagen (igual que los íconos de categoría); mostramos
+   solo la mitad de arriba. */
 .footer__social img {
-  height: 32px;
+  height: 64px;
   width: auto;
-  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* Auth pages (Login / Register) */
