@@ -18,9 +18,9 @@
       <nav class="sidebar__nav">
         <a class="sidebar__link is-active" href="dashboard.html"><span class="sidebar__icon">🎓</span> Mis cursos</a>
         <a class="sidebar__link" href="#favorites-section"><span class="sidebar__icon">⭐</span> Favoritos</a>
-        <a class="sidebar__link" href="#certificates-section"><span class="sidebar__icon">📜</span> Certificados</a>
+        <a class="sidebar__link" href="#certificates-section"><span class="sidebar__icon"><img src="../src/assets/icons/icon-certificate.png" alt=""></span> Certificados</a>
         <a class="sidebar__link" href="#profile-section"><span class="sidebar__icon">👤</span> Perfil</a>
-        <a class="sidebar__link" href="#settings-section"><span class="sidebar__icon">⚙️</span> Configuración</a>
+        <a class="sidebar__link" href="#settings-section"><span class="sidebar__icon"><img src="../src/assets/icons/icon-settings.png" alt=""></span> Configuración</a>
         <a class="sidebar__link" href="admin.html" id="admin-link" hidden><span class="sidebar__icon">🛠️</span> Panel admin</a>
       </nav>
       <button type="button" class="sidebar__link" id="logout-btn"><span class="sidebar__icon">↩️</span> Cerrar sesión</button>
@@ -39,7 +39,7 @@
         <a href="catalog.html">Ver todos →</a>
       </div>
 
-      <div class="course-grid" id="my-courses">
+      <div class="course-list" id="my-courses">
         <p>Cargando tus cursos...</p>
       </div>
 
@@ -61,7 +61,7 @@
       <section class="admin-section" id="certificates-section">
         <h2 class="admin-section__title">Certificados</h2>
         <div class="placeholder-section">
-          <div class="placeholder-section__icon">📜</div>
+          <div class="placeholder-section__icon"><img src="../src/assets/icons/icon-certificate.png" alt=""></div>
           <div class="placeholder-section__title">Todavía no existe</div>
           <p>Falta que el back agregue la emisión de certificados al completar un curso.</p>
         </div>
@@ -79,7 +79,7 @@
       <section class="admin-section" id="settings-section">
         <h2 class="admin-section__title">Configuración</h2>
         <div class="placeholder-section">
-          <div class="placeholder-section__icon">⚙️</div>
+          <div class="placeholder-section__icon"><img src="../src/assets/icons/icon-settings.png" alt=""></div>
           <div class="placeholder-section__title">Próximamente</div>
           <p>Acá van a ir tus preferencias de cuenta y notificaciones.</p>
         </div>
@@ -112,19 +112,27 @@
       return (id * 37) % 100;
     }
 
-    function renderMyCourseCard(course) {
-      const card = renderCourseCard(course);
+    // "Mis cursos" se muestra como lista horizontal (ver mockup Group 9.png),
+    // no como grid de cards.
+    function renderMyCourseListItem(course) {
       const progress = getMockProgress(course.id);
-      const cta = card.querySelector('.course-card__cta');
+      const icon = CATEGORY_ICONS[course.category] || '📚';
+      const iconStyle = course.image_path
+        ? `background-image:url('${course.image_path}');`
+        : '';
 
-      const progressWrap = document.createElement('div');
-      progressWrap.className = 'course-card__progress';
-      progressWrap.title = 'Progreso de ejemplo: el back todavía no trackea avance';
-      progressWrap.innerHTML = `<div class="course-card__progress-bar" style="width:${progress}%"></div>`;
-      cta.insertAdjacentElement('beforebegin', progressWrap);
-
-      cta.textContent = 'Continuar';
-      return card;
+      const item = document.createElement('div');
+      item.className = 'course-list-item';
+      item.title = 'Progreso de ejemplo: el back todavía no trackea avance';
+      item.innerHTML = `
+        <div class="course-list-item__icon" style="${iconStyle}">${course.image_path ? '' : icon}</div>
+        <div class="course-list-item__body">
+          <p class="course-list-item__title">${course.name || 'Curso'}</p>
+          <p class="course-list-item__progress"><strong>${progress}%</strong> completado</p>
+        </div>
+        <a href="course-detail.html?id=${course.id}" class="course-list-item__cta">Continuar</a>
+      `;
+      return item;
     }
 
     async function loadMyCourses() {
@@ -139,7 +147,7 @@
 
         const courses = enrollments.map((enrollment) => enrollment.course || enrollment);
         grid.innerHTML = '';
-        courses.forEach((course) => grid.appendChild(renderMyCourseCard(course)));
+        courses.forEach((course) => grid.appendChild(renderMyCourseListItem(course)));
         return courses;
       } catch (err) {
         grid.innerHTML = `<p class="form-error">${err.message}</p>`;

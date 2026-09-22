@@ -281,6 +281,11 @@
   margin-bottom: var(--space-sm);
 }
 
+.placeholder-section__icon img {
+  width: 32px;
+  height: 32px;
+}
+
 .placeholder-section__title {
   color: var(--color-text);
   font-weight: 700;

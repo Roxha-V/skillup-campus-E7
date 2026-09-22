@@ -1202,6 +1202,65 @@ button {
   border-radius: 999px;
 }
 
+/* "Mis cursos" del dashboard: lista horizontal, no grid de cards */
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.course-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.course-list-item__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  background-color: #0f172a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.course-list-item__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.course-list-item__title {
+  font-weight: 600;
+}
+
+.course-list-item__progress {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.course-list-item__progress strong {
+  color: var(--color-primary);
+}
+
+.course-list-item__cta {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
 @media (max-width: 900px) {
   .app-shell {
     flex-direction: column;
