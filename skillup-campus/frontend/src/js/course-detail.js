@@ -21,7 +21,7 @@ function renderCourseDetail(course) {
 
   container.innerHTML = `
     <nav class="breadcrumb">
-      <a href="catalog.html">Cursos</a>
+      <a href="../index.html">Inicio</a>
       <span>/</span>
       <a href="catalog.html?categoria=${category}">${category}</a>
       <span>/</span>
@@ -31,6 +31,19 @@ function renderCourseDetail(course) {
     <div class="course-detail-layout">
       <div class="course-detail-main">
         <div class="course-detail-media" style="${mediaStyle}">${course.image_path ? '' : '▶'}</div>
+
+        <h1 class="course-detail-card__title">${course.name || 'Curso'}</h1>
+        <p class="course-detail-main__description">${course.description || 'Todavía no hay una descripción cargada para este curso.'}</p>
+
+        <div class="instructor-profile">
+          <div class="instructor-profile__avatar" title="${course.professor || 'SkillUp Campus'}">${initials}</div>
+          <div>
+            <strong>${course.professor || 'SkillUp Campus'}</strong>
+            <p class="course-detail-card__author">Instructor/a del curso</p>
+          </div>
+        </div>
+
+        <div class="course-card__rating"><span class="star">★</span> ${course.votes ?? '—'}</div>
 
         <div class="tabs" role="tablist">
           <button type="button" class="tabs__btn is-active" data-tab="desc">Descripción</button>
@@ -69,18 +82,15 @@ function renderCourseDetail(course) {
 
       <aside class="course-detail-card">
         <span class="badge">${category}</span>
-        <h1 class="course-detail-card__title">${course.name || 'Curso'}</h1>
-        <p class="course-detail-card__author">Dictado por ${course.professor || 'SkillUp Campus'}</p>
-        <div class="course-card__rating"><span class="star">★</span> ${course.votes ?? '—'}</div>
 
         <ul class="course-detail-card__benefits">
-          <li>♾️ Acceso de por vida</li>
+          <li>⏳ Acceso de por vida</li>
           <li>🎓 Certificado de finalización</li>
         </ul>
 
-        <button type="button" id="enroll-btn" class="btn btn-primary btn-block">Inscribirme</button>
+        <button type="button" id="enroll-btn" class="btn btn-primary btn-block">Inscribirme ahora</button>
         <button type="button" id="favorite-btn" class="btn btn-outline btn-block favorite-btn ${isFavorite ? 'is-active' : ''}">
-          ${isFavorite ? '★ En favoritos' : '☆ Añadir a favorito'}
+          ${isFavorite ? '♥ En favoritos' : '♡ Añadir a favorito'}
         </button>
         <p id="enroll-message"></p>
       </aside>
@@ -105,7 +115,7 @@ function handleToggleFavorite(courseId) {
   const button = document.getElementById('favorite-btn');
   const isFavorite = toggleFavorite(courseId);
   button.classList.toggle('is-active', isFavorite);
-  button.textContent = isFavorite ? '★ En favoritos' : '☆ Añadir a favorito';
+  button.textContent = isFavorite ? '♥ En favoritos' : '♡ Añadir a favorito';
 }
 
 function initTabs() {

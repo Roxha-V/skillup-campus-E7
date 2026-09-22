@@ -929,6 +929,11 @@ button {
   font-weight: 700;
 }
 
+.course-detail-main__description {
+  color: var(--color-text-muted);
+  margin: var(--space-xs) 0 var(--space-md);
+}
+
 .course-detail-card__author {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
@@ -969,7 +974,7 @@ button {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-top: var(--space-sm);
+  margin: var(--space-sm) 0;
 }
 
 .instructor-profile__avatar {
