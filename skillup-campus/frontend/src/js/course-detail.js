@@ -25,16 +25,19 @@ function renderCourseDetail(course) {
 
     <div class="course-detail-layout">
       <div class="course-detail-main">
-        <div class="course-detail-media" style="${mediaStyle}">${course.image_path ? '' : '▶'}</div>
+        <div class="course-detail-hero">
+          <div class="course-detail-hero__media" style="${mediaStyle}">${course.image_path ? '' : '▶'}</div>
+          <div class="course-detail-hero__info">
+            <h1 class="course-detail-card__title">${course.name || 'Curso'}</h1>
+            <p class="course-detail-main__description">${course.description || 'Todavía no hay una descripción cargada para este curso.'}</p>
 
-        <h1 class="course-detail-card__title">${course.name || 'Curso'}</h1>
-        <p class="course-detail-main__description">${course.description || 'Todavía no hay una descripción cargada para este curso.'}</p>
-
-        <div class="instructor-profile">
-          <div class="instructor-profile__avatar" title="${course.professor || 'SkillUp Campus'}">${initials}</div>
-          <div>
-            <strong>${course.professor || 'SkillUp Campus'}</strong>
-            <p class="course-detail-card__author">Instructor/a del curso</p>
+            <div class="instructor-profile">
+              <div class="instructor-profile__avatar" title="${course.professor || 'SkillUp Campus'}">${initials}</div>
+              <div>
+                <strong>${course.professor || 'SkillUp Campus'}</strong>
+                <p class="course-detail-card__author">Instructor/a del curso</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -48,7 +51,16 @@ function renderCourseDetail(course) {
         </div>
 
         <div class="tabs__panel" data-panel="desc">
-          <p>${course.description || 'Todavía no hay una descripción cargada para este curso.'}</p>
+          <div class="course-detail-desc-columns">
+            <p>${course.description || 'Todavía no hay una descripción cargada para este curso.'}</p>
+            <div>
+              <h3 class="course-detail-desc-columns__title">Lo que aprenderás</h3>
+              <div class="placeholder-section">
+                <div class="placeholder-section__title">Todavía no existe</div>
+                <p>Falta que el back agregue este contenido por curso.</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="tabs__panel" data-panel="contenido" hidden>
           <div class="placeholder-section">

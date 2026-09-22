@@ -29,7 +29,9 @@
     <main class="app-main">
       <div class="app-topbar">
         <div>
-          <h1 class="app-topbar__title" id="greeting">¡Hola de nuevo! 👋</h1>
+          <h1 class="app-topbar__title" id="greeting" title="Falta que el back devuelva el nombre del usuario en GET /api/auth/profile">
+            ¡Hola de nuevo! 👋 <span class="pending-data-badge">dato pendiente del back</span>
+          </h1>
           <p class="app-topbar__subtitle">Seguí aprendiendo y alcanzá tus metas.</p>
         </div>
         <div class="admin-topbar-tools">
@@ -42,7 +44,7 @@
             <div class="admin-notif-panel" id="notif-panel" hidden>No hay notificaciones nuevas.</div>
           </div>
           <a class="admin-icon-btn" href="#settings-section" aria-label="Configuración">⚙️</a>
-          <span class="admin-avatar" id="user-avatar" title="Mi cuenta">👤</span>
+          <span class="admin-avatar" id="user-avatar" title="Falta que el back devuelva el nombre/foto del usuario en GET /api/auth/profile">👤</span>
         </div>
       </div>
 
@@ -208,8 +210,12 @@
       try {
         const profile = await apiRequest('/auth/profile');
         if (profile && profile.name) {
-          document.getElementById('greeting').textContent = `¡Hola ${profile.name}! 👋`;
-          document.getElementById('user-avatar').textContent = getInitials(profile.name);
+          const greeting = document.getElementById('greeting');
+          greeting.textContent = `¡Hola ${profile.name}! 👋`;
+          greeting.removeAttribute('title');
+          const avatar = document.getElementById('user-avatar');
+          avatar.textContent = getInitials(profile.name);
+          avatar.title = 'Mi cuenta';
         }
       } catch (err) {
         // Sin datos de perfil todavía: se mantiene el saludo genérico.
