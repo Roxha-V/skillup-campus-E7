@@ -312,3 +312,19 @@
   opacity: 0.4;
   cursor: default;
 }
+
+@media (max-width: 640px) {
+  /* El buscador con min-width:220px + los 3 íconos + avatar se salían
+     de la pantalla y el avatar quedaba inalcanzable (ni siquiera
+     scrolleable). Se pasa a 2 filas: buscador arriba, íconos abajo. */
+  .admin-topbar-tools {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .admin-search {
+    min-width: 0;
+    flex: 1 1 100%;
+    order: -1;
+  }
+}
